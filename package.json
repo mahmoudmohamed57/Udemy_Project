@@ -1,0 +1,23 @@
+{
+  "name": "udemy1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "json-server --watch ./database/db.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahmoudmohamed57/Udemy_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mahmoudmohamed57/Udemy_Project/issues"
+  },
+  "homepage": "https://github.com/mahmoudmohamed57/Udemy_Project#readme",
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
+}
