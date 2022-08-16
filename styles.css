@@ -10,23 +10,28 @@
 
 nav {
   width: 100%;
-  height: 80px;
+  height: 70px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  box-shadow: 0 0 10px 10px #ddd;
+  box-shadow: 0 0 4px 4px #ddd;
+}
+
+nav .menu {
+  display: none;
 }
 
 nav .title {
-  padding-left: 20px;
+  display: flex;
+  margin: 0px 10px;
 }
 
 nav .collapse {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   flex-grow: 1;
-  padding: 0 20px;
+  margin: 0 10px;
 }
 
 nav .input form {
@@ -49,84 +54,101 @@ nav .input input {
 
 nav .input form button {
   border-radius: 20px;
-  margin-left: 20px;
+  margin: 0px 10px;
 }
 
-nav .types {
+nav .udemyTypes {
   display: flex;
   font-size: 15px;
 }
 
-nav .types div:first-child {
-  margin-right: 20px;
+nav .udemyTypes div:first-child {
+  margin-right: 10px;
+  white-space: nowrap;
 }
 
-nav .btnGourp {
+nav .udemyTypes div:last-child {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+nav .cartShopping {
+  margin-right: 10px;
+}
+
+nav .buttonsGroub {
   width: 200px;
   display: flex;
   justify-content: space-between;
 }
 
-.btnWhite,
-.btnDark {
+.buttonPrimary,
+.buttonDefault {
+  white-space: nowrap;
+  font-size: 1rem;
   border: none;
   cursor: pointer;
   text-align: center;
   color: #1c1d1f;
   border: 1px solid #1c1d1f;
   cursor: pointer;
-  padding: 8px 10px;
+  padding: 4px 8px;
 }
 
-.btnWhite {
+.buttonPrimary {
   background-color: transparent;
 }
 
-.btnDark {
+.buttonPrimary:hover {
+  background-color: var(--color-light);
+}
+
+.buttonDefault {
+  margin: 0px 10px;
   background-color: #222;
   color: #fff;
 }
 
-.btnWhite:hover {
-  background-color: var(--color-light);
+nav i {
+  color: black;
+  font-size: 1rem;
 }
 
-nav .menuBar {
-  font-size: 50px;
-  display: none;
-}
-
-@media screen and (max-width: 990px) {
-  nav .title {
-    font-size: 15px;
-  }
-  nav .collapse input {
-    width: 200px;
+@media screen and (max-width: 1270px) {
+  nav .udemyTypes .udemyTypesFirst {
+    display: none;
   }
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 1035px) {
+  nav .udemyTypes .udemyTypesLast {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 820px) {
   nav .collapse {
     display: none;
   }
-  nav .menuBar {
+  nav .menu {
     display: block;
+    display: flex;
   }
 }
+
 .container {
-  width: min(1300px, 100%);
-  padding: 0 20px;
-  margin: auto;
+  width: 100%;
+  padding: 0px 4px;
 }
 
 .header {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  background-color: #ddd;
-  margin: 50px 0;
+  background-color: rgb(244, 247, 248);
+  margin: 4px 0px;
   min-height: 60vh;
-  padding: 0 20px;
+  padding: 0px 20px;
 }
 
 .header .text {
@@ -135,8 +157,8 @@ nav .menuBar {
   align-items: center;
   justify-content: space-between;
   background-color: #fff;
-  margin: 70px 0;
-  padding: 0 20px;
+  margin: 70px 0px;
+  padding: 20px 20px;
 }
 
 .header .image {
@@ -144,7 +166,7 @@ nav .menuBar {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 70px 0;
+  margin: 70px 0px;
 }
 
 .header .image img {
@@ -152,10 +174,19 @@ nav .menuBar {
   height: 250px;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 820px) {
   .header .text,
   .header .image {
-    width: 100%;
+    width: 80%;
+  }
+  .header .image {
+    order: -1;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header .text {
+    height: 150px;
   }
 }
 
@@ -163,44 +194,47 @@ ul {
   list-style: none;
 }
 
-.headerCourses {
-  margin: 0 40px;
+.coursesHeadline {
+  margin: 0 20px;
 }
 
-.headerCourses .filter-list {
+.coursesHeadline .title {
+  margin: 10px 0px;
+  font-size: large;
+}
+
+.coursesHeadline .subTitle {
+  font-size: x-large;
+}
+
+.coursesHeadline .filter-list {
   width: 50%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 10px 0;
+  margin: 10px 0px;
 }
 
-.headerCourses .filter-list .filter-item {
+.coursesHeadline .filter-list .filter-item {
   color: #222;
   cursor: pointer;
+  font-size: large;
+  font-weight: bold;
 }
-.headerCourses .filter-list .filter-item:hover {
+.coursesHeadline .filter-list .filter-item:hover {
   color: burlywood;
 }
 
-.allCourses {
+.coursesSection {
   margin: 20px 20px;
   border: 1px solid #222;
 }
 
-.allCourses .courses p {
+.coursesSection .courses p {
   color: #333;
   margin-bottom: 10px;
 }
 
-.courses .courses-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.courses-header {
-  padding: 0 10px;
-}
 .courses {
   width: 100%;
   padding: 30px 20px;
@@ -208,9 +242,18 @@ ul {
   flex-wrap: wrap;
 }
 
+.courses-header {
+  padding: 0 10px;
+}
 .courses .course {
   width: 50%;
   padding: 10px 10px;
+}
+
+.courses .courses-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .courses .course img {
@@ -220,34 +263,47 @@ ul {
 }
 
 .courses .course .name {
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 10px;
 }
 
-.courses .course .sub-title {
+.courses .course .title {
   font-size: 15px;
 }
 
-@media screen and (max-width: 576px) {
-  .courses .course {
-    width: 100%;
-  }
+.courses .course .review {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
 }
 
-@media screen and (min-width: 770px) {
+@media screen and (min-width: 600px) {
   .courses .course {
     width: 50%;
   }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 800px) {
   .courses .course {
-    width: 33.333333333%;
+    width: 33.333333%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .courses .course {
+    width: 25%;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .courses .course {
     width: 20%;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .courses .course {
+    width: 100%;
   }
 }
