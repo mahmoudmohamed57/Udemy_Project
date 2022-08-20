@@ -1,2 +1,1 @@
-to run the project you should run this command in your terminal
-(npm start) => this command makes API run to show data
+to run the project you should make sure that you install node js in your local machine then install JSON server in the editor and run this command in your terminal (npm start) => this command makes API run to show data.
