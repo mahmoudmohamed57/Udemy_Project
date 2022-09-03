@@ -1,6 +1,6 @@
 let courses = [];
 let curCourse = 'Python';
-const coursesContainer = document.querySelector('.carousel-inner');
+const courseinfo = document.querySelector('.carousel-inner');
 const courseContent = document.querySelector('.course-content');
 const searchBar = document.querySelector('#search');
 const buttonSearch = document.querySelector('#button-search');
@@ -65,137 +65,184 @@ let categoriesContent = {
 };
 
 const renderCourseContent = () => {
-  courseContent.innerHTML = `
+  let str = `
           <h1 id="title">${categoriesContent[curCourse].header}</h1>
           <p>${categoriesContent[curCourse].description}</p>
           <button id="button-primary">${categoriesContent[curCourse].name}</button>
           `;
+  courseContent.innerHTML = str;
 };
+
+function RunCarousel(new_Courses) {
+  let sz = Math.floor(courseinfo.clientWidth / 248);
+  let t = '';
+  let pages = Math.ceil(new_Courses.length / sz);
+  for (let i = 0; i < pages; i++) {
+    t += `<div class="carousel-item ${i == 0 ? 'active' : ''}">
+          <div class='cards-wrapper'>`;
+    for (let j = 0; j + i * sz < new_Courses.length && j < sz; j++) {
+      t += renderCourses(new_Courses[i * sz + j]);
+    }
+    t += `</div></div>`;
+  }
+  courseinfo.innerHTML = t;
+}
 
 const renderCourses = (array) => {
   let str = ``;
-  array.forEach((c, i) => {
-    let rate = '';
-    for (let i = 1; i <= 5; i++) {
-      if (c.rating >= i) {
-        rate += `<span class="fa fa-star checked"></span>`;
-      } else if (c.rating + 0.9 >= i) {
-        rate += `<span class="fa fa-star-half-stroke"></span>`;
-      } else {
-        rate += `<span class="fa-regular fa-star"></span>`;
-      }
-    }
-    let instructors = '',
-      index = 0;
-    for (let element of c.instructors) {
-      if (index) instructors += ',';
-      instructors += element.name;
-      index++;
-    }
-    if (i == 0) {
-      str += `
-          <div class='carousel-item col-md-3 active'>
-                 <div class="panel panel-default">
-                    <div class="panel-thumbnail">
-                      <a href="#" title="image 1" class="thumb">
-                        <img class="img-fluid mx-auto d-block" src=${
-                          c.image
-                        } alt="slide 1">
-                      </a>
-                      <h4 class="card-title">${c.title}</h4>
-                      <p class="card-text">${instructors}</p>
-                      <p>
-                      <span>${c.rating.toFixed(1)}</span>
-                      ${rate}
-                      </p>
-                      <p><b>E£${c.price}</b></p>
-                    </div>
-                  </div>
-              </div>
-            `;
+  let rate = '';
+  for (let i = 1; i <= 5; i++) {
+    if (array.rate >= i) {
+      rate += `<span class="fa fa-star checked"></span>`;
+    } else if (array.rate + 0.9 >= i) {
+      rate += `<span class="fa fa-star-half-stroke"></span>`;
     } else {
-      str += `
-          <div class='carousel-item col-md-3 '>
-                 <div class="panel panel-default">
-                    <div class="panel-thumbnail">
-                      <a href="#" title="image 1" class="thumb">
-                        <img class="img-fluid mx-auto d-block" src=${
-                          c.image
-                        } alt="slide 1">
-                      </a>
-                      <h4 class="card-title">${c.title}</h4>
-                      <p class="card-text">${instructors}</p>
-                      <p>
-                      <span>${c.rating.toFixed(1)}</span>
-                      ${rate}
-                      </p>
-                      <p><b>E£${c.price}</b></p>
-                    </div>
-                  </div>
-              </div>
-            `;
+      rate += `<span class="fa-regular fa-star"></span>`;
     }
-  });
-  coursesContainer.innerHTML = str;
+  }
+  let instructors = '',
+    index = 0;
+  for (let element of array.instructors) {
+    if (index) instructors += ',';
+    instructors += element.name;
+    index++;
+  }
+  str += `
+  <div class = "card-course">
+       <img class="card-img" src=${array.image} alt="slide 1">
+        <h4 class="card-title">${array.title}</h4>
+        <p class="card-text">${instructors}</p>
+        <p><span>${array.rating.toFixed(1)}</span>${rate}</p>
+        <p><b>E£${array.price}</b></p>  
+  </div>`;
+  return str;
 };
 
-const getCourses = async (link) => {
-  const response = await fetch(link);
-  const data = await response.json();
-  courses = data;
+const getData = async () => {
+  let allCources = [];
+  const x = Object.keys(categoriesContent);
+  for (let i = 0; i < x.length; i++) {
+    const response = await fetch(`http://localhost:3000/${x[i]}`);
+    const data = await response.json();
+    allCources.push(...data);
+  }
+  return allCources;
+};
+
+const getCourses = async () => {
+  courses = await getData();
+  disActive();
+  buttonCategoryPython.classList.add('category-active');
+  curCourse = 'Python';
   renderCourseContent();
-  renderCourses(courses);
+  const newCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
+  );
+  RunCarousel(newCourses);
 };
 
-getCourses('http://localhost:3000/Python');
+getCourses();
+addEventListener('resize', (fun) => {
+  RunCarousel(courses);
+});
 
 buttonSearch.addEventListener('click', (e) => {
   e.preventDefault();
   const value = searchBar.value;
   const newCourses = courses.filter((c) =>
-    c.title.toLowerCase().includes(value.toLowerCase())
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
   );
-  renderCourses(newCourses);
+  const newCourses1 = newCourses.filter(
+    (c) =>
+      c.title.toLowerCase().includes(value.toLowerCase()) ||
+      c.instructors[0].name.toLowerCase().includes(value.toLowerCase())
+  );
+  RunCarousel(newCourses1);
 });
 
+const disActive = () => {
+  buttonCategoryPython.classList.remove('category-active');
+  buttonCategoryExcel.classList.remove('category-active');
+  buttonCategoryAWS.classList.remove('category-active');
+  buttonCategoryData.classList.remove('category-active');
+  buttonCategoryDrawing.classList.remove('category-active');
+  buttonCategoryJavascript.classList.remove('category-active');
+  buttonCategoryWeb.classList.remove('category-active');
+};
+
 buttonCategoryPython.addEventListener('click', (e) => {
+  disActive();
+  buttonCategoryPython.classList.add('category-active');
   curCourse = 'Python';
   renderCourseContent();
-  getCourses('http://localhost:3000/Python');
+  const newCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
+  );
+  RunCarousel(newCourses);
 });
 
 buttonCategoryExcel.addEventListener('click', (e) => {
+  disActive();
+  buttonCategoryExcel.classList.add('category-active');
   curCourse = 'Excel';
   renderCourseContent();
-  getCourses('http://localhost:3000/Excel');
+  const newCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
+  );
+  RunCarousel(newCourses);
 });
 
 buttonCategoryWeb.addEventListener('click', (e) => {
+  disActive();
+  buttonCategoryWeb.classList.add('category-active');
   curCourse = 'Web';
   renderCourseContent();
-  getCourses('http://localhost:3000/Web');
+  const newCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
+  );
+  RunCarousel(newCourses);
 });
 
 buttonCategoryJavascript.addEventListener('click', (e) => {
+  disActive();
+  buttonCategoryJavascript.classList.add('category-active');
   curCourse = 'Javascript';
   renderCourseContent();
-  getCourses('http://localhost:3000/Javascript');
+  const newCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
+  );
+  RunCarousel(newCourses);
 });
 
 buttonCategoryData.addEventListener('click', (e) => {
+  disActive();
+  buttonCategoryData.classList.add('category-active');
   curCourse = 'Data';
   renderCourseContent();
-  getCourses('http://localhost:3000/Data');
+  const newCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
+  );
+  RunCarousel(newCourses);
 });
 
 buttonCategoryAWS.addEventListener('click', (e) => {
+  disActive();
+  buttonCategoryAWS.classList.add('category-active');
   curCourse = 'AWS';
   renderCourseContent();
-  getCourses('http://localhost:3000/AWS');
+  const newCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
+  );
+  RunCarousel(newCourses);
 });
 
 buttonCategoryDrawing.addEventListener('click', (e) => {
+  disActive();
+  buttonCategoryDrawing.classList.add('category-active');
   curCourse = 'Drawing';
   renderCourseContent();
-  getCourses('http://localhost:3000/Drawing');
+  const newCourses = courses.filter((c) =>
+    c.title.toLowerCase().includes(curCourse.toLowerCase())
+  );
+  RunCarousel(newCourses);
 });
