@@ -2,12 +2,6 @@
   --color-light: #f7f9fa;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   overflow-x: hidden;
 }
@@ -254,6 +248,9 @@ body {
 }
 
 ul {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   list-style: none;
 }
 
@@ -269,7 +266,7 @@ ul {
   width: 60%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   margin: 10px 0px;
 }
 
@@ -281,20 +278,20 @@ ul {
 #AWS,
 #Drawing {
   border: none;
-  color: #222;
+  color: #666;
   cursor: pointer;
   outline: none;
   font-size: large;
   background-color: #fff;
 }
-
-#Python:hover,
-#Excel:hover,
-#Web:hover,
-#Javascript:hover,
-#Data:hover,
-#AWS:hover,
-#Drawing:hover {
+#Python.category-active,
+#Excel.category-active,
+#Web.category-active,
+#Javascript.category-active,
+#Data.category-active,
+#AWS.category-active,
+#Drawing.category-active {
+  color: black;
   font-weight: bold;
 }
 
@@ -307,157 +304,19 @@ ul {
   margin: 30px 30px;
 }
 
-/* my carsouel */
-@media (min-width: 767px) {
-  /* show 3 items */
-  .carousel-inner .active,
-  .carousel-inner .active + .carousel-item,
-  .carousel-inner .active + .carousel-item + .carousel-item,
-  .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
-    display: block;
-  }
-
-  .carousel-inner
-    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
-  .carousel-inner
-    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
-    + .carousel-item,
-  .carousel-inner
-    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
-    + .carousel-item
-    + .carousel-item,
-  .carousel-inner
-    .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left)
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item {
-    transition: none;
-  }
-
-  .carousel-inner .carousel-item-next,
-  .carousel-inner .carousel-item-prev {
-    position: relative;
-    transform: translate3d(0, 0, 0);
-  }
-
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    background-color: #000;
-  }
-
-  .carousel-control-prev {
-    left: -71px;
-    bottom: 50%;
-  }
-
-  .carousel-control-next {
-    right: -73px;
-    bottom: 50%;
-  }
-
-  .carousel-inner
-    .active.carousel-item
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item {
-    position: absolute;
-    top: 0;
-    right: -25%;
-    z-index: -1;
-    display: block;
-    visibility: visible;
-  }
-
-  /* left or forward direction */
-  .active.carousel-item-left + .carousel-item-next.carousel-item-left,
-  .carousel-item-next.carousel-item-left + .carousel-item,
-  .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
-  .carousel-item-next.carousel-item-left
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item,
-  .carousel-item-next.carousel-item-left
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item {
-    position: relative;
-    transform: translate3d(-100%, 0, 0);
-    visibility: visible;
-  }
-
-  /* farthest right hidden item must be abso position for animations */
-  .carousel-inner .carousel-item-prev.carousel-item-right {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    display: block;
-    visibility: visible;
-  }
-
-  /* right or prev direction */
-  .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
-  .carousel-item-prev.carousel-item-right + .carousel-item,
-  .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
-  .carousel-item-prev.carousel-item-right
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item,
-  .carousel-item-prev.carousel-item-right
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item
-    + .carousel-item {
-    position: relative;
-    transform: translate3d(100%, 0, 0);
-    visibility: visible;
-    display: block;
-    visibility: visible;
-  }
+.card-img {
+  width: 100%;
+  border: 1px solid #666;
 }
 
-@media (max-width: 767px) {
-  .carousel-control-prev-icon,
-  .carousel-control-next-icon {
-    background-color: #000;
-  }
-  .carousel-control-prev {
-    left: -39px;
-    bottom: 50%;
-  }
-  .carousel-control-next {
-    right: -39px;
-    bottom: 50%;
-  }
+.cards-wrapper {
+  display: flex;
 }
 
-/* Bootstrap Lightbox using Modal */
-
-#profile-grid {
-  overflow: auto;
-  white-space: normal;
-}
-
-#profile-grid .profile {
-  padding-bottom: 40px;
-}
-
-#profile-grid .panel {
-  padding: 0;
-}
-
-#profile-grid .panel-body {
-  padding: 15px;
-}
-
-#profile-grid .profile-name {
-  font-weight: bold;
-}
-
-#profile-grid .thumbnail {
-  margin-bottom: 6px;
+.card-course {
+  width: 248px;
+  margin: 5px;
+  flex-wrap: wrap;
 }
 
 .fa-star {
@@ -466,4 +325,31 @@ ul {
 
 .fa-star-half-stroke {
   color: brown;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: black;
+  border-radius: 9999px;
+  border: 1px black solid;
+  color: white;
+  width: 45px;
+  height: 45px;
+  font-size: 0.7rem;
+}
+.carousel-control-prev {
+  position: absolute;
+  left: -30px;
+  top: 45px;
+}
+
+.carousel-control-next {
+  position: absolute;
+  right: -15px;
+  top: 45px;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgb(28, 29, 31);
 }
