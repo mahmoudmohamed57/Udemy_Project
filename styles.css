@@ -304,6 +304,10 @@ ul {
   margin: 30px 30px;
 }
 
+.carousel-inner {
+  width: 100%;
+}
+
 .card-img {
   width: 100%;
   border: 1px solid #666;
@@ -314,7 +318,7 @@ ul {
 }
 
 .card-course {
-  width: 248px;
+  width: 25%;
   margin: 5px;
   flex-wrap: wrap;
 }
@@ -352,4 +356,22 @@ ul {
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
   background-color: rgb(28, 29, 31);
+}
+
+@media screen and (max-width: 1035px) {
+  .card-course {
+    width: 33.33333%;
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .card-course {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .card-course {
+    width: 100%;
+  }
 }
